@@ -1,4 +1,4 @@
-package com.jpms.ems.ems;
+package com.jpmc.ems;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
