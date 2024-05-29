@@ -15,7 +15,7 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     public Either<String, List<Employee>> getEmployeesByDepartment(String name){
-       List<Employee> employeeList = employeeRepository.findByDepartmentName(name);
+       List<Employee> employeeList = employeeRepository.findByDepartmentNameContaining(name);
         if(employeeList.isEmpty()){
             return Either.left("No employees found for department: "+name);
         }else{
@@ -24,8 +24,10 @@ public class EmployeeService {
 
     }
 
-    public List<Employee> getEmployeeBySalary(double salary){
-        return employeeRepository.findBySalaryGreaterThan(salary);
+    public List<Employee> getEmployeeBySalary(boolean salaryFlag){
+       int minSalary =  salaryFlag ? 10000 : 0;
+       int maxSalary =  salaryFlag ? Integer.MAX_VALUE : 10000;
+        return employeeRepository.findBySalaryBetween(minSalary,maxSalary);
     }
 
     public List<Employee> getAllEmployees(){

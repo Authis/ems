@@ -11,6 +11,7 @@ import static com.jpmc.ems.common.ControllerUtils.fold;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/ems/")
 @AllArgsConstructor
 public class EmployeeController {
@@ -19,7 +20,7 @@ public class EmployeeController {
 
     @Tag(name = "Department", description = "Filter Employees based on the Department")
     @GetMapping("/department/{name}")
-    public ResponseEntity<?> getEmployees(@PathVariable String name){
+    public ResponseEntity<?> getEmployeesByDepartment(@PathVariable String name){
         System.out.println(">>>>>>"+name);
         System.out.println(employeeService.getEmployeesByDepartment(name));
          return fold(employeeService.getEmployeesByDepartment(name));
@@ -27,8 +28,8 @@ public class EmployeeController {
 
     @Tag(name = "Salary", description = "Filter Employees based on the Salary")
     @GetMapping("/salary")
-    public List<Employee> getEmployees(@RequestParam double salary){
-        return employeeService.getEmployeeBySalary(salary);
+    public List<Employee> getEmployeesBySalary(@RequestParam boolean salaryFlag){
+        return employeeService.getEmployeeBySalary(salaryFlag);
     }
 
     @Tag(name = "Employee", description = "Get all Employees")
